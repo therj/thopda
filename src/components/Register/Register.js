@@ -1,4 +1,5 @@
 import React from 'react'
+
 class Register extends React.Component {
   constructor(props) {
     super(props)
@@ -28,7 +29,7 @@ class Register extends React.Component {
   }
 
   onSubmitRegister = () => {
-    fetch('https://thopda-api.herokuapp.com/register', {
+    fetch(`${process.env.API_URL}/register`, {
       method: 'post',
       headers: {
         'content-Type': 'application/json',

@@ -21,7 +21,7 @@ class SignIn extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    fetch('https://thopda-api.herokuapp.com/signin', {
+    fetch(`${process.env.API_URL}/signin`, {
       method: 'post',
       headers: {
         'content-Type': 'application/json',
