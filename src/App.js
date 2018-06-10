@@ -203,7 +203,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch(`${API_URL}/findface`, {
+          fetch('https://thopda-api.herokuapp.com/findface', {
             method: 'put',
             headers: {
               'content-Type': 'application/json',
@@ -214,9 +214,11 @@ class App extends Component {
           })
             .then(response => response.json())
             .then(count => {
-              this.setState(Object.assign(this.state.user, {
+              this.setState(
+                Object.assign(this.state.user, {
                   entries: count,
-                }))
+                }),
+              )
             })
             .catch(err => console.log(err))
         }
