@@ -8,7 +8,7 @@ import Register from './components/Register/Register'
 import Rank from './components/Rank/Rank'
 import Logo from './components/Logo/Logo'
 import Particles from 'react-particles-js'
-
+const API_URL = process.env.API_URL
 const particlesOptions = {
   particles: {
     number: {
@@ -191,27 +191,35 @@ class App extends Component {
   onPictureSubmit = () => {
     this.setState({
       imageUrl: this.state.input,
-    });
-      fetch('http://localhost:3000/imageUrl', {
-        method: 'post',
-        headers: { 'content-Type': 'application/json' },
-        body: JSON.stringify({
-          input: this.state.input,
-        }),
-      })
+    })
+    fetch(`${API_URL}/imageUrl`, {
+      method: 'post',
+      headers: {
+        'content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        input: this.state.input,
+      }),
+    })
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/findface', {
+          fetch(`${API_URL}/findface`, {
             method: 'put',
-            headers: { 'content-Type': 'application/json' },
+            headers: {
+              'content-Type': 'application/json',
+            },
             body: JSON.stringify({
               id: this.state.user.id,
             }),
           })
             .then(response => response.json())
             .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count }))
+              this.setState(
+                Object.assign(this.state.user, {
+                  entries: count,
+                }),
+              )
             })
             .catch(err => console.log(err))
         }
@@ -227,9 +235,13 @@ class App extends Component {
     if (route === 'signin') {
       this.setState(initialState)
     } else if (route === 'home') {
-      this.setState({ isSignedIn: true })
+      this.setState({
+        isSignedIn: true,
+      })
     }
-    this.setState({ route: route })
+    this.setState({
+      route: route,
+    })
   }
   /****************
    RENDER!
@@ -243,19 +255,19 @@ class App extends Component {
         <Navigation
           onRouteChange={this.onRouteChange}
           isSignedIn={isSignedIn}
-        />
+        />{' '}
         {route === 'home' ? (
           <div>
             <Logo />
             <Rank
               name={this.state.user.name}
               entries={this.state.user.entries}
-            />
+            />{' '}
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onPictureSubmit={this.onPictureSubmit}
-            />
-            <FaceRecognition imageUrl={imageUrl} box={box} />
+            />{' '}
+            <FaceRecognition imageUrl={imageUrl} box={box} />{' '}
           </div>
         ) : route === 'signin' ? (
           <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
@@ -264,7 +276,7 @@ class App extends Component {
             loadUser={this.loadUser}
             onRouteChange={this.onRouteChange}
           />
-        )}
+        )}{' '}
       </div>
     )
   }

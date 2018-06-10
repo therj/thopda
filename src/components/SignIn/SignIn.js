@@ -1,6 +1,6 @@
 import React from 'react'
 // import './SignIn.css'
-
+const API_URL = process.env.API_URL
 class SignIn extends React.Component {
   constructor(props) {
     super(props)
@@ -11,16 +11,22 @@ class SignIn extends React.Component {
   }
 
   onEmailChange = event => {
-    this.setState({ signInEmail: event.target.value })
+    this.setState({
+      signInEmail: event.target.value,
+    })
   }
   onPasswordChange = event => {
-    this.setState({ signInPassword: event.target.value })
+    this.setState({
+      signInPassword: event.target.value,
+    })
   }
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/signin', {
+    fetch(`${API_URL}/signin`, {
       method: 'post',
-      headers: { 'content-Type': 'application/json' },
+      headers: {
+        'content-Type': 'application/json',
+      },
       body: JSON.stringify({
         email: this.state.signInEmail,
         password: this.state.signInPassword,
@@ -41,11 +47,11 @@ class SignIn extends React.Component {
         <main className="pa4 black-80">
           <div className="measure">
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f1 fw6 ph0 mh0">Sign In</legend>
+              <legend className="f1 fw6 ph0 mh0"> Sign In </legend>{' '}
               <div className="mt3">
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">
-                  Email
-                </label>
+                  Email{' '}
+                </label>{' '}
                 <input
                   onChange={this.onEmailChange}
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
@@ -53,11 +59,11 @@ class SignIn extends React.Component {
                   name="email-address"
                   id="email-address"
                 />
-              </div>
+              </div>{' '}
               <div className="mv3">
                 <label className="db fw6 lh-copy f6" htmlFor="password">
-                  Password
-                </label>
+                  Password{' '}
+                </label>{' '}
                 <input
                   onChange={this.onPasswordChange}
                   className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
@@ -65,8 +71,8 @@ class SignIn extends React.Component {
                   name="password"
                   id="password"
                 />
-              </div>
-            </fieldset>
+              </div>{' '}
+            </fieldset>{' '}
             <div className="">
               <input
                 onClick={this.onSubmitSignIn}
@@ -74,17 +80,17 @@ class SignIn extends React.Component {
                 type="submit"
                 value="Sign in"
               />
-            </div>
+            </div>{' '}
             <div className="lh-copy mt3">
               <p
                 onClick={() => onRouteChange('register')}
                 className="f6 link dim black db pointer"
               >
-                New here? Register
-              </p>
-            </div>
-          </div>
-        </main>
+                New here ? Register{' '}
+              </p>{' '}
+            </div>{' '}
+          </div>{' '}
+        </main>{' '}
       </article>
     )
   }
