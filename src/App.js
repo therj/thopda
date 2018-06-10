@@ -8,7 +8,6 @@ import Register from './components/Register/Register'
 import Rank from './components/Rank/Rank'
 import Logo from './components/Logo/Logo'
 import Particles from 'react-particles-js'
-const API_URL = process.env.API_URL
 const particlesOptions = {
   particles: {
     number: {
@@ -192,7 +191,7 @@ class App extends Component {
     this.setState({
       imageUrl: this.state.input,
     })
-    fetch(`${API_URL}/imageUrl`, {
+    fetch('https://thopda-api.herokuapp.com/imageUrl', {
       method: 'post',
       headers: {
         'content-Type': 'application/json',
@@ -215,11 +214,9 @@ class App extends Component {
           })
             .then(response => response.json())
             .then(count => {
-              this.setState(
-                Object.assign(this.state.user, {
+              this.setState(Object.assign(this.state.user, {
                   entries: count,
-                }),
-              )
+                }))
             })
             .catch(err => console.log(err))
         }
