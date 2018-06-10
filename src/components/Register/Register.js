@@ -1,5 +1,6 @@
 import React from 'react'
 const API_URL = process.env.API_URL
+console.log(API_URL)
 class Register extends React.Component {
   constructor(props) {
     super(props)
